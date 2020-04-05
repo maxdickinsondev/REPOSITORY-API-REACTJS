@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -53,10 +54,13 @@ export default class Home extends Component {
                     </button>
                 </Form>
 
-                <User>
-                    <img src={user.avatar_url ? user.avatar_url : photo} alt="Perfil"/>
-                    <span>{user.login}</span>
-                </User>
+                <Link to="/main">
+                    <User>
+                        <img src={user.avatar_url ? user.avatar_url : photo} alt="Perfil"/>
+                        <span>{user.login}</span>
+                    </User>
+                </Link>
+
             </Container>
         );
     }

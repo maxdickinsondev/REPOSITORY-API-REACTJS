@@ -21,7 +21,6 @@ export const Header = styled.header`
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         font-size: 22px;
         color: #DBD5D5;
-
     }
 `;
 
