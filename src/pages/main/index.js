@@ -1,12 +1,38 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';  
+import api from '../../services/api';
 
 import { Container, Header, User, UserInfo, RepoInfo } from './styles';
 
 export default class Main extends Component {
+    state = {
+        userData: [],
+        reposData: []
+    }
+
+    async componentDidMount() {
+        const { match } = this.props;
+        
+        const [user, repositories] = await Promise.all([
+            api.get(`users/${match.params.username}`),
+            api.get(`users/${match.params.username}/repos`, {
+                params: {
+                    per_page: 5
+                }
+            })
+        ]);
+
+        this.setState({
+            userData: user.data,
+            reposData: repositories.data
+        });
+    }
+
     render() {
+        const { userData, reposData } = this.state;
+
         return (
             <Container>
                 <Header>
@@ -22,30 +48,17 @@ export default class Main extends Component {
                     </div>
                     
                     <UserInfo>
-                        <img src="https://avatars3.githubusercontent.com/u/59968647?s=460&u=81b334046950db301a9c5a3cb0fe9b264a00c8d9&v=4" alt="Perfil" />
-                        <span>Max Dickinson</span>
+                        <img src={userData.avatar_url} alt="Perfil" />
+                        <span> {userData.login} </span>
                     </UserInfo>
 
                     <RepoInfo>
-                        <li>
-                            <span>be-the-hero-backend</span>
-                            <a href="">Detalhes</a>
-                        </li>
-
-                        <li>
-                            <span>gerenciador-de-series-react-native</span>
-                            <a href="">Detalhes</a>
-                        </li>
-
-                        <li>
-                            <span>gobarber-backend</span>
-                            <a href="">Detalhes</a>
-                        </li>
-
-                        <li>
-                            <span>medieval-adventure</span>
-                            <a href="">Detalhes</a>
-                        </li>        
+                        {reposData.map(repositories => (
+                            <li key={repositories.id}>
+                                <span> {repositories.name} </span>
+                                <a href={repositories.html_url}>Detalhes</a>
+                            </li>
+                        ))}
                     </RepoInfo>
                 </User>
             </Container>

@@ -21,7 +21,7 @@ export default class Home extends Component {
 
         const { username } = this.state;
 
-        const response = await api.get(`${username}`);
+        const response = await api.get(`users/${username}`);
 
         const data = response.data;
 
@@ -54,7 +54,7 @@ export default class Home extends Component {
                     </button>
                 </Form>
 
-                <Link to="/main">
+                <Link to={`/main/${user.login}`}>
                     <User>
                         <img src={user.avatar_url ? user.avatar_url : photo} alt="Perfil"/>
                         <span>{user.login}</span>
