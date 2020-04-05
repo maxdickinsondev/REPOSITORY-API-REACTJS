@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FaGithubAlt, FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
+import Pagination from '../pagination';
+
 import api from '../../services/api';
 
 import { Container, Header, User, UserInfo, RepoInfo } from './styles';
@@ -9,7 +11,10 @@ import { Container, Header, User, UserInfo, RepoInfo } from './styles';
 export default class Main extends Component {
     state = {
         userData: [],
-        reposData: []
+        reposData: [],
+
+        currentPage: 1,
+        reposPerPage: 5
     }
 
     async componentDidMount() {
@@ -17,11 +22,7 @@ export default class Main extends Component {
         
         const [user, repositories] = await Promise.all([
             api.get(`users/${match.params.username}`),
-            api.get(`users/${match.params.username}/repos`, {
-                params: {
-                    per_page: 5
-                }
-            })
+            api.get(`users/${match.params.username}/repos`)
         ]);
 
         this.setState({
@@ -31,7 +32,13 @@ export default class Main extends Component {
     }
 
     render() {
-        const { userData, reposData } = this.state;
+        const { userData, reposData, currentPage, reposPerPage } = this.state;
+
+        const indexOfLastRepos = currentPage * reposPerPage;
+        const indexOfFirstPost = indexOfLastRepos - reposPerPage;
+        const currentRepos = reposData.slice(indexOfFirstPost, indexOfLastRepos);
+
+        const paginate = (number) => this.setState({ currentPage: number });
 
         return (
             <Container>
@@ -53,7 +60,7 @@ export default class Main extends Component {
                     </UserInfo>
 
                     <RepoInfo>
-                        {reposData.map(repositories => (
+                        {currentRepos.map(repositories => (
                             <li key={repositories.id}>
                                 <span> {repositories.name} </span>
                                 <a href={repositories.html_url}>Detalhes</a>
@@ -61,6 +68,8 @@ export default class Main extends Component {
                         ))}
                     </RepoInfo>
                 </User>
+
+                <Pagination reposPerPage={reposPerPage} totalRepos={reposData.length} paginate={paginate} />
             </Container>
         );
     }

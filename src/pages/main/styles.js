@@ -10,7 +10,7 @@ export const Header = styled.header`
     align-items: center;
     background: #534949;
     border-radius: 4px;
-    padding: 10px;
+    padding: 0px;
     margin: 6px;
 
     svg {
@@ -70,7 +70,7 @@ export const RepoInfo = styled.ul`
         align-items: center;
         justify-content: space-between;
         border-top: 1px solid #DBD5D5;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
 
         span {
             font-size: 14px;
