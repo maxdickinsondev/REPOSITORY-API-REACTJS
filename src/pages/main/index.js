@@ -10,11 +10,12 @@ import { Container, Header, User, UserInfo, RepoInfo } from './styles';
 
 export default class Main extends Component {
     state = {
+        username: '',
         userData: [],
         reposData: [],
 
         currentPage: 1,
-        reposPerPage: 5
+        reposPerPage: 4
     }
 
     async componentDidMount() {
@@ -27,12 +28,14 @@ export default class Main extends Component {
 
         this.setState({
             userData: user.data,
-            reposData: repositories.data
+            reposData: repositories.data,
+            username: match.params.username
         });
     }
 
     render() {
-        const { userData, reposData, currentPage, reposPerPage } = this.state;
+        const { match } = this.props;
+        const { userData, reposData, currentPage, reposPerPage, username } = this.state;
 
         const indexOfLastRepos = currentPage * reposPerPage;
         const indexOfFirstPost = indexOfLastRepos - reposPerPage;
@@ -63,13 +66,18 @@ export default class Main extends Component {
                         {currentRepos.map(repositories => (
                             <li key={repositories.id}>
                                 <span> {repositories.name} </span>
-                                <a href={repositories.html_url}>Detalhes</a>
+                                <a href="">Detalhes</a>
                             </li>
                         ))}
                     </RepoInfo>
                 </User>
 
-                <Pagination reposPerPage={reposPerPage} totalRepos={reposData.length} paginate={paginate} />
+                <Pagination 
+                    reposPerPage={reposPerPage} 
+                    totalRepos={reposData.length} 
+                    paginate={paginate} 
+                    username={username} 
+                />
             </Container>
         );
     }

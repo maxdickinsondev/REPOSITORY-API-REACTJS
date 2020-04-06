@@ -10,7 +10,7 @@ export const Header = styled.header`
     flex-direction: row;
     background: #534949;
     border-radius: 4px;
-    padding: 10px;
+    padding: 0px;
     margin: 6px;
 
     svg {

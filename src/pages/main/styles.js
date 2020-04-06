@@ -32,6 +32,7 @@ export const User = styled.div`
     margin: 80px auto;
     align-items: center;
     border-radius: 8px;
+    height: 390px;
 
     svg {
         margin-top: 20px;
@@ -62,15 +63,15 @@ export const UserInfo = styled.div`
 
 export const RepoInfo = styled.ul`
 
-    margin: 20px;
-
+    margin-left: 20px;
+    margin-right: 20px;
+    
     li {
         list-style: none;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-top: 1px solid #DBD5D5;
-        margin-bottom: 0px;
 
         span {
             font-size: 14px;
