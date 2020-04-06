@@ -66,7 +66,7 @@ export default class Main extends Component {
                         {currentRepos.map(repositories => (
                             <li key={repositories.id}>
                                 <span> {repositories.name} </span>
-                                <a href="">Detalhes</a>
+                                <a href={repositories.html_url}>Detalhes</a>
                             </li>
                         ))}
                     </RepoInfo>
