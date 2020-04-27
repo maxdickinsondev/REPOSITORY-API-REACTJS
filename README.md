@@ -12,4 +12,4 @@
 - Axios (para as requisições com a api)
 - API do GitHub
  
- ASSISTIR AO VÍDEO NO YOUTUBE: https://youtu.be/TloUKBbJM6A
+ ASSISTIR O VÍDEO NO YOUTUBE: https://youtu.be/TloUKBbJM6A
